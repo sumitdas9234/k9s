@@ -16,8 +16,8 @@ FROM python:alpine
 ARG KUBECTL_VERSION="v1.20.5"
 
 COPY --from=build /k9s/execs/k9s /bin/k9s
-RUN apk add --update ca-certificates \
-  && apk add --update -t deps curl vim \
+RUN apk add --update ca-certificates curl zsh git\
+  && apk add --update -t deps vim \
   && curl -L https://storage.googleapis.com/kubernetes-release/release/${KUBECTL_VERSION}/bin/linux/amd64/kubectl -o /usr/local/bin/kubectl \
   && chmod +x /usr/local/bin/kubectl \
   && apk del --purge deps \
