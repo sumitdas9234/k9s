@@ -1,32 +1,30 @@
-name: K9s Checks
+name: ci
 
 on:
-  workflow_dispatch:
-    push:
+  push:
     branches:
-      - master
-    tags:
-      - rc*
-      - v*
-  pull_request:
-    branches:
-      - master
+      - 'master'
+
 jobs:
-  build:
-    runs-on: ubuntu-20.04
+  docker:
+    runs-on: ubuntu-latest
     steps:
-      - name: Install Go
-        uses: actions/setup-go@v2
+      -
+        name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+      -
+        name: Login to DockerHub
+        uses: docker/login-action@v1 
         with:
-          go-version: 1.16
-
-      - name: Setup GO env
-        run: go env -w CGO_ENABLED=0
-
-      - name: Checkout Code
-        uses: actions/checkout@v2
-
-      - name: Run Tests
-        run: make test
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          username: ${{ secrets.DOCKER_HUB_USERNAME }}
+          password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
+      -
+        name: Build and push
+        id: docker_build
+        uses: docker/build-push-action@v2
+        with:
+          push: true
+          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/workspace:base
+      -
+        name: Image digest
+        run: echo ${{ steps.docker_build.outputs.digest }}
