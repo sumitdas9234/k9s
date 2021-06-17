@@ -14,7 +14,7 @@ ADD https://amazon-eks.s3.us-west-2.amazonaws.com/1.19.6/2021-01-05/bin/linux/am
 ADD https://raw.githubusercontent.com/ahmetb/kubectx/master/kubectx ./extras
 ADD https://raw.githubusercontent.com/ahmetb/kubectx/master/kubens ./extras
 ADD https://storage.googleapis.com/kubernetes-release/release/${KUBECTL_VERSION}/bin/linux/amd64/kubectl ./extras
-ADD https://github.com/JanDeDobbeleer/oh-my-posh/releases/v3.163.0/download/posh-linux-amd64 ./extras/oh-my-posh
+ADD https://github.com/JanDeDobbeleer/oh-my-posh/releases/download/v3.163.1/posh-linux-amd64 ./extras/oh-my-posh
 # -----------------------------------------------------------------------------
 # Build the final Docker image
 
