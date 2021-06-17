@@ -23,7 +23,7 @@ FROM python:alpine
 COPY --from=build /k9s/execs/k9s /bin/k9s
 COPY --from=build /k9s/extras /usr/local/bin
 
-RUN apk add --update ca-certificates curl zsh git bash fzf && rm /var/cache/apk/*
+RUN apk add --update ca-certificates curl zsh git bash && rm /var/cache/apk/*
 RUN sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 RUN chmod +x /usr/local/bin/*
 
