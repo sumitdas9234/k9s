@@ -10,10 +10,10 @@ COPY internal internal
 COPY cmd cmd
 RUN apk --no-cache add make git gcc libc-dev curl && make build
 
-ADD https://amazon-eks.s3.us-west-2.amazonaws.com/1.19.6/2021-01-05/bin/linux/amd64/aws-iam-authenticator ./extras
-ADD https://raw.githubusercontent.com/ahmetb/kubectx/master/kubectx ./extras
-ADD https://raw.githubusercontent.com/ahmetb/kubectx/master/kubens ./extras
-ADD https://storage.googleapis.com/kubernetes-release/release/${KUBECTL_VERSION}/bin/linux/amd64/kubectl ./extras
+ADD https://amazon-eks.s3.us-west-2.amazonaws.com/1.19.6/2021-01-05/bin/linux/amd64/aws-iam-authenticator ./extras/aws-iam-authenticator
+ADD https://raw.githubusercontent.com/ahmetb/kubectx/master/kubectx ./extras/kubectx
+ADD https://raw.githubusercontent.com/ahmetb/kubectx/master/kubens ./extras/kubens
+ADD https://storage.googleapis.com/kubernetes-release/release/${KUBECTL_VERSION}/bin/linux/amd64/kubectl ./extras/kubectl
 ADD https://github.com/JanDeDobbeleer/oh-my-posh/releases/download/v3.163.0/posh-linux-amd64 ./extras/oh-my-posh
 
 # -----------------------------------------------------------------------------
