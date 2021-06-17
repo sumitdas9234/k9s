@@ -14,7 +14,6 @@ ADD https://amazon-eks.s3.us-west-2.amazonaws.com/1.19.6/2021-01-05/bin/linux/am
 ADD https://raw.githubusercontent.com/ahmetb/kubectx/master/kubectx ./extras/kubectx
 ADD https://raw.githubusercontent.com/ahmetb/kubectx/master/kubens ./extras/kubens
 ADD https://storage.googleapis.com/kubernetes-release/release/${KUBECTL_VERSION}/bin/linux/amd64/kubectl ./extras/kubectl
-ADD https://github.com/JanDeDobbeleer/oh-my-posh/releases/download/v3.163.0/posh-linux-amd64 ./extras/oh-my-posh
 
 # -----------------------------------------------------------------------------
 # Build the final Docker image
@@ -25,6 +24,7 @@ COPY --from=build /k9s/execs/k9s /bin/k9s
 COPY --from=build /k9s/extras /usr/local/bin
 
 RUN apk add --update ca-certificates curl zsh git bash  && rm /var/cache/apk/*
+RUN wget https://github.com/JanDeDobbeleer/oh-my-posh/releases/download/v3.163.0/posh-linux-amd64 -O /usr/local/bin/oh-my-posh
 RUN chmod +x /usr/local/bin/*
 
 ENTRYPOINT /bin/zsh
