@@ -18,12 +18,12 @@ ADD https://storage.googleapis.com/kubernetes-release/release/${KUBECTL_VERSION}
 # -----------------------------------------------------------------------------
 # Build the final Docker image
 
-FROM python:alpine
+FROM gcr.io/google.com/cloudsdktool/cloud-sdk:alpine
 
 COPY --from=build /k9s/execs/k9s /bin/k9s
 COPY --from=build /k9s/extras /usr/local/bin
 
-RUN apk add --update ca-certificates curl zsh git bash && rm /var/cache/apk/*
+RUN apk add --update ca-certificates curl zsh git bash nodejs npm && rm /var/cache/apk/*
 RUN sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 RUN chmod +x /usr/local/bin/*
 
