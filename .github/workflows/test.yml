@@ -1,9 +1,15 @@
 name: ci
 
 on:
-  push:
-    branches:
-      - 'master'
+  workflow_dispatch:
+   inputs:
+      image:
+        description: 'Docker Image Name'
+        required: true
+      tag:
+        description: 'Tag of the Docker Image'
+        required: true
+        default: 'latest'
 
 jobs:
   docker:
@@ -24,7 +30,7 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           push: true
-          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/workspace:base
+          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/${{ github.event.inputs.image }}:${{ github.event.inputs.tag }}
       -
         name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
